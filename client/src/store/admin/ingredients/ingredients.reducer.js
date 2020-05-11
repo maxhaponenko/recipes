@@ -7,7 +7,6 @@ const initialState = {
 }
 
 const ingredientsReducer = (state = initialState, action) => {
-    console.log(action)
     switch(action.type) {
         case ADMIN_FETCH_INGREDIENTS.SUCCESS: {
             return {

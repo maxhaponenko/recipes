@@ -2,24 +2,20 @@ import React, { Component } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import './dropdown-component.scss'
 
-const types = [
-    {id: 1, name: 'Milk'},
-    {id: 2, name: 'Meat'},
-    {id: 3, name: 'Vegetables'},
-    {id: 4, name: 'Other'},
-]
-
 export default class DropdownComponent extends Component {
-
-    state = {
-        isOpen: false,
-        options: [],
-        placeholder: this.props.placeholeder ? this.props.placeholeder : 'Placeholder',
-        selected: this.props.placeholeder,
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: false,
+            options: [],
+            selectedText: this.props.default ? this.props.default.name : this.props.placeholder,
+        }
+        console.log(this.state)
     }
 
     static getDerivedStateFromProps(nextProps) {
         return {
+            placeholder: nextProps.placeholder,
             default: nextProps.default,
             options: nextProps.options
         }
@@ -33,18 +29,22 @@ export default class DropdownComponent extends Component {
 
     render() {
         const { className } = this.props
-        
-        
 
         return (
             <div className="f-dropdown">
                 <Dropdown isOpen={this.state.isOpen} toggle={this.toggle}>
                     <DropdownToggle className={`f-dropdown-toggle ${className}`} caret>
-                        {this.props.placeholder}
+                        {this.state.selectedText}
                     </DropdownToggle>
                     <DropdownMenu>
                         {this.state.options.map((item, index) => (
-                            <DropdownItem>{item.name}</DropdownItem>
+                            <DropdownItem 
+                                onClick={() => {
+                                    this.setState({
+                                        selectedText: item.name
+                                    }, () => this.props.onChange(item))
+                                }}
+                            >{item.name}</DropdownItem>
                         ))}
                     </DropdownMenu>
                 </Dropdown>

@@ -60,7 +60,7 @@ class Ingredients extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    items: state.admin.ingredients.items
+    items: state.admin.ingredientsPage.ingredients.items
 })
 
 const mapDispatchToProps = {

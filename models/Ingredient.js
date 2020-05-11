@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const schema = new Schema({
-    id: {
+    uid: {
         type: Number,
         require: true
     },
@@ -21,6 +21,9 @@ const schema = new Schema({
     unit: {  // Грамм, милилитр, щепотка, столовая ложка и т.д.
         type: Number,
         require: true
+    },
+    insertedAt: {
+        type: Date
     }
 })
 

@@ -1,4 +1,3 @@
-// CREATS ACTIONS to work with api() wrapper method 
 export const createAsyncAction = (type) => ({
     TYPE: `${type}`,
     REQUEST: `${type}--REQUEST`,
@@ -6,13 +5,15 @@ export const createAsyncAction = (type) => ({
     SUCCESS: `${type}--SUCCESS`,
 })
 
-// SIMPLE ACTIONS (used without api() wrapper method)
+// Auth and security
 export const AUTH_RESPONSE = 'AUTH_RESPONSE';
 export const LOG_OUT = 'LOG_OUT'
 export const LOG_IN = 'LOG_IN'
 export const SAVE_TOKENS = 'SAVE_TOKENS'
 
-
-// ACTIONS used with api() method
+// Admin -> Ingredients page
 export const ADMIN_FETCH_INGREDIENTS = createAsyncAction('admin/ingredients/FETCH_INGREDIENTS')
 
+// Admin -> Add ingredient modal
+export const ADMIN_ADD_INGREDIENT = createAsyncAction('admin/ingredients/ADD_INGREDIENT')
+export const ADMIN_ADD_INGREDIENT_SYNC_SELECTION = 'admin/ingredients/SYNC_INGREDIENT'

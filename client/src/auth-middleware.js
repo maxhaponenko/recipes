@@ -16,7 +16,7 @@ const isExpired = (token = '') => {
     }
 }
 
-// Auth Middleware
+// Auth middleware method
 const api = async (method = 'GET', url, req, callback) => {
 
     if (!req.type) {
@@ -50,6 +50,7 @@ const api = async (method = 'GET', url, req, callback) => {
         let request = {}
 
         if (method === 'GET') {
+            // debugger
             request = {
                 method: method,
                 headers: {
@@ -58,21 +59,27 @@ const api = async (method = 'GET', url, req, callback) => {
                 },
             }
         } else {
-            const payload = req.filter(item => !item.type && item.success )
+            // debugger
+            // let payload = {}
+            // Object.keys(req).forEach(item => {
+            //     if (item !== "type" && item !== "success") {
+            //         payload[item] = req[item]
+            //     }
+            // })
             request = {
                 method: method,
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${store.getState().auth.tokens.accessToken}`
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(req.payload)
             }
         }
 
         
         store.dispatch({type: req.type.REQUEST, request: request})
         const response = await fetch(baseURL + url, request)
-
+        // debugger
         if (response.status === 403) {
             const data = await response.json()
             store.dispatch({

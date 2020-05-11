@@ -1,5 +1,6 @@
 import React from 'react';
 import { closeModal } from 'store/shared/modal/modals.actions'
+import { addNewIngredient } from 'store/admin/ingredients/ingredients.actions'
 import { ADMIN_ADD_INGREDIENT_MODAL } from 'constants/modals'
 import { connect } from 'react-redux'
 import DropdownComponent from 'components/dropdown/dropdown-component'
@@ -21,7 +22,7 @@ class AddIngredients extends React.Component {
     render() {
         
         const { types, units } = this.props
-        debugger
+        // debugger
         return (
             <div className="add-ingredient-modal">
                 <header className="modal-card-head" style={{backgroundColor: 'white'}}>
@@ -48,8 +49,9 @@ class AddIngredients extends React.Component {
                             <div className="column is-6">
                                 <DropdownComponent
                                     className="primary"
-                                    options={types}
                                     placeholder="Type"
+                                    options={types}
+                                    onChange={(item) => this.setState({type: item})}
                                 />
                             </div>
                             <div className="column is-6">
@@ -57,6 +59,7 @@ class AddIngredients extends React.Component {
                                     className="primary"
                                     options={units}
                                     placeholder="Unit"
+                                    onChange={(item) => this.setState({unit: item})}
                                 />
                             </div>
                         </div>
@@ -97,8 +100,12 @@ class AddIngredients extends React.Component {
                     <button
                         onClick={this.closeModal}
                         className="button is-danger is-outlined"
+                        
                     >CANCEL</button>
-                    <button className="button is-primary">SAVE</button>
+                    <button 
+                        className="button is-primary"
+                        onClick={() => this.props.addNewIngredient(this.state)}
+                    >SAVE</button>
 
                 </footer>
             </div>
@@ -108,11 +115,12 @@ class AddIngredients extends React.Component {
 
 
 const mapStateToProps = (state) => ({
-    types: state.admin.ingredients.types,
-    units: state.admin.ingredients.units
+    types: state.admin.ingredientsPage.ingredients.types,
+    units: state.admin.ingredientsPage.ingredients.units
 })
 const mapDispatchToProps = {
-    closeModal
+    closeModal,
+    addNewIngredient
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddIngredients)
