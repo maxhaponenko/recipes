@@ -1,0 +1,242 @@
+@import '~media/styles/variables.scss';
+
+.panel {
+    width: 600px;
+    max-width: 95vw;
+    height: auto;
+    background-color: $bg-panel;
+    position: absolute;
+    top: 35px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 5px;
+    color: white;
+    padding: 40px;
+    margin-bottom: 35px;
+    @media (max-width: 425px) {
+        padding: 25px;
+    }
+    .tab {
+        width: 50%;
+        height: 53px;
+        background-color: $bg-disabled;
+        cursor: pointer;
+        position: relative;
+        transition: 0.5s all;
+        > div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &:hover {
+            background-color: $green-hover;
+        }
+        @media (max-width: 380px) {
+            height: 45px;
+        }
+    }
+    .tab.active {
+        background-color: $green;
+    }
+    .tab-pane {
+        display: none;
+        -webkit-animation: fadeOut 1s;
+        animation: fadeOut 1s;
+    }
+    .tab-pane.active {
+        display: block;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+    }
+}
+.form__heading {
+    font-size: 30px;
+    color: $font-light;
+    padding-top: 36px;
+    display: block;
+    text-align: center;
+}
+form.auth-form {
+    margin-top: 36px;
+    position: relative;
+    transition: 0.3s all;
+    .auth-form__row {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        > div {
+            position: relative;
+            width: 48%;
+        }
+    }
+    .auth-form__input-container.onError {
+        &:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+            border: 1px solid #ff000094;
+        }
+    }
+    input {
+        width: 100%;
+        height: 37px;
+        background: transparent;
+        border: 1px solid $font-default;
+        outline: none;
+        caret-color: $font-default;
+        padding: 4px 10px;
+        color: $font-light;
+        position: relative;
+        transition: 0.2s all;
+        &::placeholder {
+            color: $font-default;
+        }
+    }
+    label {
+        position: absolute;
+        top: 7px;
+        left: 11px;
+        color: $font-default;
+        pointer-events: none;
+        transition: 0.2s all;
+    }
+    input:focus + label {
+        position: absolute;
+        top: -16px;
+        left: 5px;
+        pointer-events: none;
+        font-size: 10px;
+    }
+    input:not(:placeholder-shown) + label {
+        position: absolute;
+        top: -16px;
+        left: 5px;
+        pointer-events: none;
+        font-size: 10px;
+        display: none;
+        transition: 0.2s all;
+    }
+    input:focus::placeholder {
+        opacity: 0;
+        transition: 0.2s all;
+    }
+    > div {
+        margin-bottom: 40px;
+        position: relative;
+    }
+    input ~ span {
+        position: absolute;
+        width: 35px;
+        height: 37px;
+        right: 0px;
+        padding-top: 12px;
+        color: grey;
+        font-size: 13px;
+        cursor: pointer;
+        text-align: center;
+        &:hover {
+            color: $green-hover;
+        }
+    }
+    .onError {
+        &:before {
+            content: '';
+            display: block;
+            border: 1px solid red;
+        }
+    }
+    .forgot-password {
+        position: absolute;
+        right: 0;
+        bottom: 88px;
+        font-size: 15px;
+        cursor: pointer;
+        color: $green;
+        &:hover {
+            color: $green-hover;
+        }
+        @media (max-width: 425px) {
+            bottom: 75px;
+        }
+    }
+    .btn-signUp {
+        width: 100%;
+        height: 68px;
+        background-color: $green;
+        position: relative;
+        outline: none;
+        border: none;
+        transition: 0.5s all;
+        margin-bottom: 0;
+        cursor: pointer;
+        span {
+            width: max-content;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            color: $font-light;
+            letter-spacing: 5px;
+            font-weight: 500;
+        }
+        &:hover {
+            background-color: $green-hover;
+        }
+        @media (max-width: 499px) {
+            span {
+                font-size: 27px;
+                letter-spacing: 3px;
+            }
+        }
+        @media (max-width: 425px) {
+            height: 55px;
+            span {
+                font-size: 24px;
+                letter-spacing: 1px;
+            }
+        }
+    }
+    .form-tooltip {
+        margin-top: 11px;
+        margin-left: -16px;
+    }
+    /* Change Autocomplete styles in Chrome*/
+    input:-webkit-autofill,
+    input:-webkit-autofill-selected,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+    border: 1px solid $font-default;
+    -webkit-text-fill-color: $font-light;
+    background-color: $bg-panel !important;
+    transition: background-color 1000s ease-in-out 0s;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+      to { opacity: 0; }
+}

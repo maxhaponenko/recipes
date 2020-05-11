@@ -1,0 +1,221 @@
+@import '~media/styles/variables.scss';
+
+$active-item-color: $green;
+$default-item-color: #4a4a4a;
+
+.admin-top-menu {
+    position: relative;
+    left: 0;
+    justify-content: flex-start;
+    box-shadow: none;
+    // background-color: rgba(9, 51, 95, 0.2);
+    // z-index: 100;
+    .menu-controls {
+        width: 100%;
+        height: auto;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        display: none;
+        &__togglers {
+            position: relative;
+            height: 20px;
+            width: 45px;
+            margin-top: 7px;
+            margin-right: 7px;
+            margin-bottom: 6px;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 3px;
+            display: flex;
+            justify-content: space-evenly;
+            background: rgb(30,87,153); /* Old browsers */
+            background: -moz-linear-gradient(left,  rgba(30,87,153,1) 0%, rgba(23,128,214,1) 100%, rgba(125,185,232,1) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left,  rgba(30,87,153,1) 0%,rgba(23,128,214,1) 100%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right,  rgba(30,87,153,1) 0%,rgba(23,128,214,1) 100%,rgba(125,185,232,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */
+
+            span {
+                color: $default-item-color;
+                font-size: 11px;
+                cursor: pointer;
+                align-self: center;
+                opacity: 1;
+                &:first-child {
+                    margin-left: 2px !important;
+                }
+                &:hover {
+                    color: $active-item-color;
+                }
+            }
+        }
+    }
+    &__menu {
+        // padding-bottom: 30px;
+        width: auto;
+        height: 100%;
+        color: $default-item-color;
+        font-weight: 400;
+        font-size: 15px;
+        display: flex;
+        .item-container {
+            -webkit-transition: all 0.2s ease-out;
+            -moz-transition: all 0.2s ease-out;
+            -o-transition: all 0.2s ease-out;
+            transition: all 0.2s ease-out;
+            border-left: 1px solid rgba(195, 195, 195, 0.25);
+            &:last-child {
+                border-right: 1px solid rgba(195, 195, 195, 0.25);
+            }
+            .nav-item {
+                position: relative;
+                padding: 10px 15px 10px 39px;
+                line-height: 1rem;
+                height: 100%;
+                cursor: pointer;
+                .onClick-wrapper {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    background: transparent;
+                }
+                span {
+                    font-size: 18px;
+                    position: absolute;
+                    top: 48%;
+                    left: 11px;
+                    transform: translate(0, -50%);
+                }
+                p {
+                    margin-bottom: 0;
+                    position: relative;
+                    width: min-content;
+                    top: 47%;
+                    transform: translate(0,-50%);
+                }
+                i {
+                    display: none;
+                    position: absolute;
+                    right: 2px;
+                    top: 52%;
+                    transform: translate(0, -50%);
+                    font-size: 12px;
+                    color: $default-item-color;
+                }
+                &.active {
+                    color: $green;
+                }
+                &:hover {
+                    background: rgba(202, 202, 202, 0.13); 
+                    span {
+                        color: $active-item-color !important;
+                    }
+                    i {
+                        display: block;
+                    }
+                    .sub-menu-container {
+                        display: block;
+                    }
+                }
+            }
+            .nav-item.without-submenu {
+                padding: 0;
+                a {
+                    color: $default-item-color;
+                    padding: 10px 15px 10px 39px;
+                    height: 100%;
+                    cursor: pointer;
+                    display: block;
+                    text-decoration: none;
+                    &.active {
+                        color: $active-item-color;
+                        font-weight: 400;
+                        &:hover {
+                            all: none;
+                        }
+                        span {
+                            color: $active-item-color;
+                        }
+                    }
+                }
+            }
+            .sub-menu-container {
+                width: 200px;
+                display: none;
+                background-color: #26313E;
+                border: 1px solid rgba(202,202,202,0.3);
+                box-shadow: 0px 4px 8px -6px rgba(15, 15, 15, 0.99);
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                // &.open {
+                //     display: block;
+                // }
+                ul {
+                    margin-bottom: 0px;
+                    padding-left: 0;
+                    li {
+                        position: relative;
+                        overflow: visible;
+                        list-style-type: none;
+                        a, div {
+                            text-decoration: none;
+                            text-align: left;
+                            color: #afafaf;
+                            padding: 8px 15px 8px 35px;
+                            display: block;
+                            position: relative;
+                            line-height: 17px;
+                            font-weight: 400;
+                            &:hover {
+                                cursor: pointer;
+                                background: rgba(202, 202, 202, 0.13);
+                            }
+                            &.active {
+                                color: $active-item-color;
+                                font-weight: 400;
+                                &:hover {
+                                    all: none;
+                                }
+                            }
+                            &::before {
+                                content: '';
+                                height: 1px;
+                                width: 7px;
+                                position: absolute;
+                                background-color: $active-item-color;
+                                top: 50%;
+                                left: 19px;
+                                transform: translate(0, -50%);
+                                z-index: 101;
+                            }
+                        }
+                        &::before {
+                            content: '';
+                            width: 1px;
+                            height: 100%;
+                            background-color: $active-item-color;
+                            position: absolute;
+                            left: 19px;
+                            z-index: 101;
+                        }
+                        &:last-child:before {
+                            content: '';
+                            width: 1px;
+                            height: 51%;
+                            background-color: $active-item-color;
+                            position: absolute;
+                            left: 19px;
+                            z-index: 101;
+                            top: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,32 @@
+
+.Toastify {
+    &__toast {
+        font-family: unset;
+        border-radius: 4px;
+        &--default {
+            background: #45515B;
+            color: #aaa; 
+        }
+        &--success {
+            background: #34AE88;
+        }
+        &--info {
+            background: #3498db;
+        }
+        &--warning {
+            background: #ebc738;
+        }
+        &--error {
+            background: #e74c3c;
+        }
+        &-body {
+            padding: 0 10px;
+        }
+    }
+    &__toast-container {
+        &--top-right {
+            top: 5rem;
+            right: 1rem;
+        }
+    }
+}

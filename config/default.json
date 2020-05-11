@@ -1,0 +1,7 @@
+{
+    "port": 5001,
+    "jwtSecret": "secretKey mern",
+    "accessTokenExpiration": "1d",
+    "refreshTokenExpiration": "10d",
+    "mongoUri": "mongodb+srv://max:max123321@cluster0-ltffb.azure.mongodb.net/test?retryWrites=true&w=majority"
+}
