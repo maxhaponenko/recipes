@@ -43,15 +43,14 @@ const getIngredients = async () => {
                 return true
             }
         })
-        // item.type = type.name
-        // item.unit = unit.name
+        item.type = type.name
+        item.unit = unit.name
         
         return item
     })
     result.types = ingredientTypes.map(item => ({uid: item.uid, name: item.name, imgSrc: item.imgSrc}))
     result.units = ingredientUnits.map(item => ({uid: item.uid, name: item.name, type: item.type}))
     return result
-
 }
 
 
@@ -60,7 +59,12 @@ router.post(
     checkToken,
     async (req, res) => {
         try {
+            
+            const ingredientWithMaxUID = await Ingredient.findOne().sort({uid:-1}).lean()
+            const maxUID = ingredientWithMaxUID.uid
+
             const ingredient = new Ingredient({
+                uid: maxUID + 1,
                 name: req.body.name,
                 type: req.body.type,
                 unit: req.body.unit,
@@ -68,7 +72,8 @@ router.post(
                 imgSrc: [],
                 insertedAt: new Date(),
             })
-            ingredient.save()
+
+            await ingredient.save()
 
             res.status(201).json({
                 toastType: 1,
