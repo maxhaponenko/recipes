@@ -1,6 +1,6 @@
 import React from 'react';
 import { closeModal } from 'store/shared/modal/modals.actions'
-import { addNewIngredient } from 'store/admin/ingredients/ingredients.actions'
+import { onSelectionChange, addNewIngredient } from 'store/admin/ingredients/ingredients.actions'
 import { ADMIN_ADD_INGREDIENT_MODAL } from 'constants/modals'
 import { connect } from 'react-redux'
 import DropdownComponent from 'components/dropdown/dropdown-component'
@@ -8,21 +8,19 @@ import './add-ingredeint-modal.scss'
 
 class AddIngredients extends React.Component {
 
-    state = {
-        name: '',
-        type: undefined,
-        unit: undefined,
-        description: ''
-    }
 
     closeModal = () => {
         this.props.closeModal({ id: ADMIN_ADD_INGREDIENT_MODAL })
     }
 
+    onChange = (changedValue) => {
+        this.props.onSelectionChange(changedValue)
+    }
+
     render() {
         
-        const { types, units } = this.props
-        // debugger
+        const { types, units, selection } = this.props
+
         return (
             <div className="add-ingredient-modal">
                 <header className="modal-card-head" style={{backgroundColor: 'white'}}>
@@ -38,9 +36,9 @@ class AddIngredients extends React.Component {
                         <div className="columns">
                             <div className="column is-12">
                                 <input
-                                    class="column input is-primary"
-                                    value={this.state.name}
-                                    onChange={(e) => this.setState({ name: e.target.value })}
+                                    className="column input is-primary"
+                                    value={selection.name}
+                                    onChange={(e) => this.onChange({ name: e.target.value })}
                                     type="text"
                                     placeholder="Ingredient name" />
                             </div>
@@ -51,7 +49,7 @@ class AddIngredients extends React.Component {
                                     className="primary"
                                     placeholder="Type"
                                     options={types}
-                                    onChange={(item) => this.setState({type: item})}
+                                    onChange={(item) => this.onChange({type: item.uid})}
                                 />
                             </div>
                             <div className="column is-6">
@@ -59,7 +57,7 @@ class AddIngredients extends React.Component {
                                     className="primary"
                                     options={units}
                                     placeholder="Unit"
-                                    onChange={(item) => this.setState({unit: item})}
+                                    onChange={(item) => this.onChange({unit: item.uid})}
                                 />
                             </div>
                         </div>
@@ -67,9 +65,9 @@ class AddIngredients extends React.Component {
                             <div className="column is-12">
                                 <textarea
                                     style={{ height: 100, minHeight: 100, maxHeight: 200 }}
-                                    class="column input is-primary"
-                                    value={this.state.description}
-                                    onChange={(e) => this.setState({ description: e.target.value })}
+                                    className="column input is-primary"
+                                    value={selection.description}
+                                    onChange={(e) => this.onChange({ description: e.target.value })}
                                     type="text"
                                     placeholder="Ingredient description"
                                 />
@@ -78,15 +76,15 @@ class AddIngredients extends React.Component {
 
                         {/* UPLOAD FILE FUNCTIONALITY */}
                         {/* <div className="columns">
-                            <div class="field column">
-                                <div class="file is-primary">
-                                    <label class="file-label">
-                                        <input class="file-input" type="file" name="image" />
-                                        <span class="file-cta">
-                                            <span class="file-icon">
-                                                <i class="fas fa-upload"></i>
+                            <div className="field column">
+                                <div className="file is-primary">
+                                    <label className="file-label">
+                                        <input className="file-input" type="file" name="image" />
+                                        <span className="file-cta">
+                                            <span className="file-icon">
+                                                <i className="fas fa-upload"></i>
                                             </span>
-                                            <span class="file-label">
+                                            <span className="file-label">
                                                 Upload images
                                                 </span>
                                         </span>
@@ -104,7 +102,7 @@ class AddIngredients extends React.Component {
                     >CANCEL</button>
                     <button 
                         className="button is-primary"
-                        onClick={() => this.props.addNewIngredient(this.state)}
+                        onClick={() => this.props.addNewIngredient(selection)}
                     >SAVE</button>
 
                 </footer>
@@ -116,10 +114,12 @@ class AddIngredients extends React.Component {
 
 const mapStateToProps = (state) => ({
     types: state.admin.ingredientsPage.ingredients.types,
-    units: state.admin.ingredientsPage.ingredients.units
+    units: state.admin.ingredientsPage.ingredients.units,
+    selection: state.admin.ingredientsPage.addIngredientFlow.selection
 })
 const mapDispatchToProps = {
     closeModal,
+    onSelectionChange,
     addNewIngredient
 }
 

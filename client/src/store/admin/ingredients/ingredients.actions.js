@@ -1,6 +1,11 @@
 import api from 'auth-middleware';
-import { ADMIN_FETCH_INGREDIENTS, ADMIN_ADD_INGREDIENT } from 'store/action-types';
-import { ADMIN_ADD_INGREDIENT_SYNC_SELECTION} from 'store/action-types'
+import { 
+    ADMIN_FETCH_INGREDIENTS, 
+    SAVE_SELECTION,
+    DISPOSE_SELECTION,
+    ADMIN_ADD_INGREDIENT
+} from 'store/action-types';
+
 
 export const fetchIngredients = () => {
     return () => {
@@ -9,11 +14,19 @@ export const fetchIngredients = () => {
     }
 }
 
+export const onSelectionChange = (selection) => ({
+    type: SAVE_SELECTION, payload: selection
+})
+
+export const disposeSelection = () => ({
+    type: DISPOSE_SELECTION
+})
+
 export const addNewIngredient = (ingredient) => {
-    return () => {
+    return async (dispatch) => {
         const request = { type: ADMIN_ADD_INGREDIENT, payload: ingredient }
-        let data = api('POST', '/api/admin/ingredients/AddIngredient', request)
-        console.log(data)
-        // dispatch(fetchIngredients())
+        await api('POST', '/api/admin/ingredients/AddIngredient', request)
+        dispatch(fetchIngredients())
+        dispatch(disposeSelection())
     }
 }

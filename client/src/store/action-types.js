@@ -15,5 +15,6 @@ export const SAVE_TOKENS = 'SAVE_TOKENS'
 export const ADMIN_FETCH_INGREDIENTS = createAsyncAction('admin/ingredients/FETCH_INGREDIENTS')
 
 // Admin -> Add ingredient modal
+export const SAVE_SELECTION = 'admin/ingredients/SAVE_SELECTION'
+export const DISPOSE_SELECTION = 'admin/ingredients/DISPOSE_SELECTION'
 export const ADMIN_ADD_INGREDIENT = createAsyncAction('admin/ingredients/ADD_INGREDIENT')
-export const ADMIN_ADD_INGREDIENT_SYNC_SELECTION = 'admin/ingredients/SYNC_INGREDIENT'
