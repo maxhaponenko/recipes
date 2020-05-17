@@ -9,7 +9,6 @@ class Ingredients extends Component {
 
     componentDidMount() {
         this.props.fetchIngredients()
-        this.props.openModal({id: ADMIN_ADD_INGREDIENT_MODAL})
     }
 
     render() {
@@ -25,13 +24,6 @@ class Ingredients extends Component {
                 >
                     + ADD INGREDIENTS
                 </button>
-                {/* <button 
-                    style={{ marginBottom: 20, marginLeft: 20 }} 
-                    className="button is-warning" 
-                    onClick={() => this.props.closeModal({id: ADMIN_ADD_INGREDIENT_MODAL})}
-                >
-                    - Close modal
-                </button> */}
                 <table className="table is-striped ">
                     <thead>
                         <tr>

@@ -3,8 +3,8 @@ import { SAVE_SELECTION, DISPOSE_SELECTION, ADMIN_ADD_INGREDIENT } from 'store/a
 const initialState = {
     selection: {
         name: '',
-        type: {},
-        unit: {},
+        type: null,
+        unit: null,
         description: ''
     },
     isLoading: false

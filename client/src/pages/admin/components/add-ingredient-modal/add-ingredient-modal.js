@@ -1,6 +1,6 @@
 import React from 'react';
 import { closeModal } from 'store/shared/modal/modals.actions'
-import { onSelectionChange, addNewIngredient } from 'store/admin/ingredients/ingredients.actions'
+import { onSelectionChange, addNewIngredient, disposeSelection } from 'store/admin/ingredients/ingredients.actions'
 import { ADMIN_ADD_INGREDIENT_MODAL } from 'constants/modals'
 import { connect } from 'react-redux'
 import DropdownComponent from 'components/dropdown/dropdown-component'
@@ -8,13 +8,21 @@ import './add-ingredeint-modal.scss'
 
 class AddIngredients extends React.Component {
 
-
     closeModal = () => {
         this.props.closeModal({ id: ADMIN_ADD_INGREDIENT_MODAL })
     }
 
     onChange = (changedValue) => {
         this.props.onSelectionChange(changedValue)
+    }
+
+    prepairForServer = (selection) => {
+        return {
+            name: selection.name,
+            description: selection.description,
+            type: selection.type.uid,
+            unit: selection.unit.uid
+        }
     }
 
     render() {
@@ -49,15 +57,17 @@ class AddIngredients extends React.Component {
                                     className="primary"
                                     placeholder="Type"
                                     options={types}
-                                    onChange={(item) => this.onChange({type: item.uid})}
+                                    value={selection.type}
+                                    onChange={(item) => this.onChange({type: item})}
                                 />
                             </div>
                             <div className="column is-6">
                                 <DropdownComponent
                                     className="primary"
-                                    options={units}
                                     placeholder="Unit"
-                                    onChange={(item) => this.onChange({unit: item.uid})}
+                                    options={units}
+                                    value={selection.unit}
+                                    onChange={(item) => this.onChange({unit: item})}
                                 />
                             </div>
                         </div>
@@ -98,11 +108,17 @@ class AddIngredients extends React.Component {
                     <button
                         onClick={this.closeModal}
                         className="button is-danger is-outlined"
-                        
-                    >CANCEL</button>
+                    >CLOSE</button>
+                    <button
+                        className="button is-danger is-outlined"
+                        onClick={this.props.disposeSelection}
+                    >CLEAR</button>
                     <button 
                         className="button is-primary"
-                        onClick={() => this.props.addNewIngredient(selection)}
+                        onClick={() => {
+                            let body = this.prepairForServer(selection)
+                            this.props.addNewIngredient(body)
+                        }}
                     >SAVE</button>
 
                 </footer>
@@ -120,7 +136,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     closeModal,
     onSelectionChange,
-    addNewIngredient
+    addNewIngredient,
+    disposeSelection
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddIngredients)
