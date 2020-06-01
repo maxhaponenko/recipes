@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PageWrapper from 'components/page-wrapper/page-wrapper'
 import { openModal, closeModal } from 'store/shared/modal/modals.actions'
-import { fetchIngredients } from 'store/admin/ingredients/ingredients.actions'
+import { fetchIngredients, processIngredientDelete } from 'store/admin/ingredients/ingredients.actions'
 import { ADMIN_ADD_INGREDIENT_MODAL } from 'constants/modals'
+import GridActions from 'pages/admin/ingredients/grid-actions'
+import styled from 'styled-components'
 
 class Ingredients extends Component {
 
@@ -24,7 +26,7 @@ class Ingredients extends Component {
                 >
                     + ADD INGREDIENTS
                 </button>
-                <table className="table is-striped ">
+                <table className="table is-striped">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -36,13 +38,17 @@ class Ingredients extends Component {
                     </thead>
                     <tbody>
                         {items && items.map((item, index) => (
-                            <tr key={index}>
+                            <Row key={index}>
                                 <td>{item.uid}</td>
                                 <td>{item.name}</td>
                                 <td>{item.type}</td>
                                 <td>{item.unit}</td>
-                                <td></td>
-                            </tr>
+                                <td>
+                                    <GridActions 
+                                        onDelete={() => this.props.processIngredientDelete(item)}
+                                    />
+                                </td>
+                            </Row>
                         ))}
                     </tbody>
                 </table>
@@ -51,12 +57,15 @@ class Ingredients extends Component {
     }
 }
 
+export const Row = styled.tr``
+
 const mapStateToProps = (state) => ({
     items: state.admin.ingredientsPage.ingredients.items
 })
 
 const mapDispatchToProps = {
     fetchIngredients: fetchIngredients,
+    processIngredientDelete: processIngredientDelete,
     openModal: openModal,
     closeModal: closeModal
 }

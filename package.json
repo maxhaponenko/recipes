@@ -20,7 +20,9 @@
     "express-validator": "^6.4.0",
     "http-proxy-middleware": "^1.0.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.5"
+    "mongoose": "^5.9.5",
+    "prop-types": "^15.7.2",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",

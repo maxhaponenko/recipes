@@ -5,6 +5,8 @@ import {
     DISPOSE_SELECTION,
     ADMIN_ADD_INGREDIENT
 } from 'store/action-types';
+import { ADMIN_CONFIRM_ACTION_MODAL } from 'constants/modals'
+import { openModal, closeModal } from 'store/shared/modal/modals.actions'
 
 
 export const fetchIngredients = () => {
@@ -28,5 +30,22 @@ export const addNewIngredient = (ingredient) => {
         await api('POST', '/api/admin/ingredients/AddIngredient', request)
         dispatch(fetchIngredients())
         dispatch(disposeSelection())
+    }
+}
+
+export const processIngredientDelete = (ingredient) => {
+    return async (dispatch) => {
+        dispatch(openModal({
+            id: ADMIN_CONFIRM_ACTION_MODAL,
+            payload: {
+                
+            }
+        }))
+    }
+}
+
+export const closeIngredientsDeleteModal = () => {
+    return dispatch => {
+        dispatch(closeModal({id: ADMIN_CONFIRM_ACTION_MODAL}))
     }
 }

@@ -10,7 +10,7 @@ class ModalContainer extends Component {
             return (
                 <Modal
                     item={item}
-                    key={i}
+                    key={`modal-${i}`}
                     zIndex={i}
                     onClose={(item) => {
                         this.props.dispatch(closeModal(item))
