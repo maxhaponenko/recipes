@@ -15,7 +15,7 @@
     "bulma": "^0.8.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-html-parser": "^2.0.2",
@@ -54,6 +54,6 @@
   },
   "devDependencies": {
     "@types/reactstrap": "^8.4.2",
-    "node-sass": "^4.13.1"
+    "node-sass": "^7.0.0"
   }
 }
